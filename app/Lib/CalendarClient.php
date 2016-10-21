@@ -44,6 +44,7 @@ class CalendarClient
     		),
     		'guestsCanSeeOtherGuests' => false,
     ));
+    
   $this->service->events->insert($this->calendarId, $event);
   }
   
@@ -66,6 +67,21 @@ class CalendarClient
   public function deleteData($eventId)
   {
     $this->service->events->delete($this->calendarId, $eventId);
+  }
+  
+  public function updateData($request)
+  {
+    $event = $this->service->events->get($this->calendarId, $request->eventId);
+    $event->setSummary($request->title);
+    
+    $updatedEvent = $this->service->events->update($this->calendarId, $request->eventId, $event);
+  }
+  
+  public function getEvent($request)
+  {
+    $event = $this->service->events->get($this->calendarId, $request->eventId);
+    
+    return $event;
   }
   
 }

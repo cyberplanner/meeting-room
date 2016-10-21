@@ -79,13 +79,15 @@
             </div>
         
          </form>
-
+      
+        <pre>
+	    @{{ $data | json }}
+        </pre>
          
         @include('flash')
         
     </div>
     <div class="col-md-9">
-        
         <div class="form-group">
             <button class="btn btn-primary" v-on:click="toggle">
                 <span v-if="calendar">View 2 Weeks</span>
@@ -100,12 +102,12 @@
         <div v-show="calendar" class="responsive-iframe-container">
             @include('calendar')
         </div>
-        
+        <div v-show="updateModal">
+            @include('update')
+        </div>
     </div>
         
         
-        
-                
 </div>
 
 

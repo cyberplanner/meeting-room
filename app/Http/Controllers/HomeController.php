@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Carbon\Carbon;
 use App\Lib\CalendarClient;
 use Illuminate\Http\Request;
@@ -14,9 +15,12 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    protected $calendar;
+    
+    public function __construct(CalendarClient $calendar)
     {
         $this->middleware('auth');
+        $this->calendar = $calendar;
     }
 
     /**
@@ -24,15 +28,22 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CalendarClient $calendar)
+    public function index()
     {
-        $eventListing = $calendar->getData();
-        return view('home', compact('eventListing'));
+        $eventListing = $this->calendar->getData();
+        $events = $eventListing["modelData"]["items"];
+        $names = array();
+        foreach ($events as $event) {
+            $email = $event['attendees'][0]['email'];
+            $name = User::where('email', $email)->select('name','email')->first();
+            $names[$email] = $name->name;
+        }
+        return view('home', compact('eventListing', 'names'));
     }
     
-    public function store(CalendarClient $calendar, Request $request)
+    public function store(Request $request)
     {
-        $calendar->postData($request);
+        $this->calendar->postData($request);
         
         $dateFormatted = formatDate($request->input_date);
         
@@ -48,12 +59,24 @@ class HomeController extends Controller
         return redirect('/home');
     }
     
-    public function destroy(CalendarClient $calendar, Request $request)
+    public function destroy(Request $request)
     {
-        $calendar->deleteData($request->eventId);
+        $this->calendar->deleteData($request->eventId);
         
         $flashMessage = strtoupper($request->title) . ' has been deleted. ';
         flash($flashMessage);
+        
+        return redirect('/home');
+    }
+    
+    public function update(Request $request)
+    {
+        $this->calendar->updateData($request);
+    }
+    
+    public function show(Request $request)
+    {
+        $event = $this->calendar->getEvent($request);
         
         return redirect('/home');
     }

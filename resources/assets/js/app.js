@@ -9,10 +9,6 @@ require('./bootstrap');
 
 const moment = require('moment')
 
-// Vue.use(require('vue-moment'))
-
-
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the body of the page. From here, you may begin adding components to
@@ -21,12 +17,14 @@ const moment = require('moment')
 
 Vue.component('example', require('./components/Example.vue'));
 
+
 const app = new Vue({
     el: '#app',
     data: {
       calendar: false,
       startTime:"08:00",
       endTime: "",
+      updateModal: false
     },
       methods: {
         incrementStartTime() {

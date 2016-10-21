@@ -4,8 +4,9 @@
         <th>Date</th>
         <th>Time</th>
         <th>Title</th>
-        <th></th>
+        <th>Booker</th>
     </tr>
+                
     @foreach ($eventListing->getItems() as $event)
         <tr>
             <td class="smallpadding"><div class="circle _{{{ $event->colorId }}}"></div></td>
@@ -18,18 +19,23 @@
                 <form method="POST" action="/delete">
                     {{ method_field('DELETE') }}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="eventId"  value="{{{ $event->getId() }}}">
+                        <input type="hidden" name="eventId"  value="{{{ $event->getId() }}}" >
                         <input type="hidden" name="title" value="{{{ $event->getSummary() }}}">
                     @foreach ($event->getAttendees() as $email)
+                        {{{ $names[$email['email']] }}}
                         @if (Auth::user()->email == $email['email'])
                     <span class="form-group">
-                        <button type="submit" value="delete"><i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <button type="submit" value="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                     </span>
+                </form>
+                
+                <form method="GET" action="/show">
+                    <span class="form-group">
+                        <button id="update-model" v-on:click="updateModal = true">Update</button>
+                    </span>
+                </form>
                         @endif
                     @endforeach
-                </form>
             </td>
     @endforeach
 </table>
-
-
