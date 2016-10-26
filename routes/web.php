@@ -17,13 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', function () {
+    return view('home');
+});
 
-Route::post('/post', 'HomeController@store');
-
-Route::delete('/delete', 'HomeController@destroy');
-
-Route::patch('/update', 'HomeController@update');
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Response;
 use App\User;
 use Carbon\Carbon;
 use App\Lib\CalendarClient;
@@ -19,7 +20,7 @@ class HomeController extends Controller
     
     public function __construct(CalendarClient $calendar)
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
         $this->calendar = $calendar;
     }
 
@@ -32,31 +33,34 @@ class HomeController extends Controller
     {
         $eventListing = $this->calendar->getData();
         $events = $eventListing["modelData"]["items"];
-        $names = array();
-        foreach ($events as $event) {
-            $email = $event['attendees'][0]['email'];
+        foreach ($events as $key => $value) {
+            if (empty($value['attendees'][0]['email'])) {
+                continue;    
+            } 
+            $email = $value['attendees'][0]['email'];
             $name = User::where('email', $email)->select('name','email')->first();
-            $names[$email] = $name->name;
+            $events[$key]['attendees'][0]['name'] = $name->name;
         }
-        return view('home', compact('eventListing', 'names'));
+        return $events;
     }
     
     public function store(Request $request)
     {
-        $this->calendar->postData($request);
+        $response = $this->calendar->postData($request);
         
-        $dateFormatted = formatDate($request->input_date);
+        // $dateFormatted = formatDate($request->get('input_date');
         
-        $flashMessage = strtoupper($request->title) . ' is booked on ' . 
-                        $dateFormatted . ' from ' . 
-                        $request->start_time . ' to ' . $request->end_time . '.';
+        // $flashMessage = strtoupper($request->title) . ' is booked on ' . 
+        //                 $dateFormatted . ' from ' . 
+        //                 $request->start_time . ' to ' . $request->end_time . '.';
         
-        flash($flashMessage);
+        // flash($flashMessage);
         
-        $user = returnUser();
-        $user->notify(new BookingConfirmed($request, $dateFormatted));
+        // $user = returnUser();
+        // $user->notify(new BookingConfirmed($request, $dateFormatted));
         
-        return redirect('/home');
+        // return redirect('/home');
+        return $response;       
     }
     
     public function destroy(Request $request)
@@ -80,4 +84,5 @@ class HomeController extends Controller
         
         return redirect('/home');
     }
+    
 }

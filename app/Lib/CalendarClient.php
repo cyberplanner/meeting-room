@@ -3,7 +3,7 @@ namespace App\Lib;
 
 use App\User;
 
-class CalendarClient
+class CalendarClient 
 {
   protected $client;
   protected $services;
@@ -23,8 +23,6 @@ class CalendarClient
   
   public function postData($request)
   {
-    $user = returnUser();
-    
     $event = new \Google_Service_Calendar_Event(array(
     	'summary' =>  ucfirst(strtolower($request->title)),
       	'location' => 'Mettrr, 5-8 Crown Works, Temple Street, E2 6QQ',
@@ -40,7 +38,7 @@ class CalendarClient
         	'timeZone' => 'Europe/London',
       	),
       	'attendees' => array(
-        		array('email' => $user->email,'organizer' => true)
+        		array('email' => $request->email,'organizer' => true)
     		),
     		'guestsCanSeeOtherGuests' => false,
     ));
@@ -61,7 +59,9 @@ class CalendarClient
       'timeMax' => $endDate->format('c')
     );
     
-    return $this->service->events->listEvents($this->calendarId, $optParams);
+    $results = $this->service->events->listEvents($this->calendarId, $optParams);
+    return $results;
+    
   }
   
   public function deleteData($eventId)
