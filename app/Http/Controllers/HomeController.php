@@ -47,7 +47,6 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $this->calendar->postData($request);
-        
         // $dateFormatted = formatDate($request->get('input_date');
         
         // $flashMessage = strtoupper($request->title) . ' is booked on ' . 

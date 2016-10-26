@@ -90,10 +90,8 @@ const moment = require('moment');
         },
         
         ajaxPost: function() {
-          this.$http.post('api/post', this.form).then((response) => {
-            this.$parent.$options.methods.fetchEventList;
-          }, (response) => {
-            console.log(response);
+          this.$http.post('api/post', this.form).then(() => {
+            this.$parent.$options.methods.fetchEventList();
           });
         }
     },
