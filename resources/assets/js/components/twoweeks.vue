@@ -1,4 +1,4 @@
-<template>
+<template id="twoweeks">
     <div class="container">
         <div class="row">
             <div class="col-md-9">
@@ -44,11 +44,12 @@
     </div>
 </template>
 
-<script>
+<script type>
 
 const moment = require('moment');
 
- module.exports = {
+ export default {
+  template :'#twoweeks',
   props : {
       email: String,
       list : Array
@@ -66,6 +67,7 @@ const moment = require('moment');
       return moment(time).format("HH:mm");
     }
   },
+    
   methods: {
     checkUser: function(event) {
       if (event.attendees) {

@@ -46,7 +46,7 @@ class HomeController extends Controller
     
     public function store(Request $request)
     {
-        $response = $this->calendar->postData($request);
+        $this->calendar->postData($request);
         
         // $dateFormatted = formatDate($request->get('input_date');
         
@@ -60,7 +60,6 @@ class HomeController extends Controller
         // $user->notify(new BookingConfirmed($request, $dateFormatted));
         
         // return redirect('/home');
-        return $response;       
     }
     
     public function destroy(Request $request)
