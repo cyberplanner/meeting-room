@@ -26,18 +26,26 @@ const app = new Vue({
     el: '#app',
     components: { 
       alert: { Alert },
-      
     },
+    
     data: {
       word: "test",
       calendar: false,
       moment: moment(),
-      list: [],
+      list: []
     },
     created: function() {
         this.fetchEventList();
     },
 
+    events: {
+      datahere: function () {
+        this.$nextTick(function () {
+          console.log('Item loaded!', this.list);
+        });
+      }
+    },
+    
     methods: {
         toggle() {
           return this.calendar = !this.calendar;
@@ -45,10 +53,10 @@ const app = new Vue({
         
       fetchEventList: function () {
         console.log("narp");
-        this.$http.get('api/get').then((response) => {
+          this.$http.get('api/get').then(function (response) {
           console.log("insideFetch");
           this.list = response.body; 
-        }, (response) => { 
+        },function(response){ 
             console.log("errors");  
         });
       }

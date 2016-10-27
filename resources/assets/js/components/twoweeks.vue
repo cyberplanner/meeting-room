@@ -48,17 +48,16 @@
 
 const moment = require('moment');
 
- module.exports = {
+ module.exports = Vue.extend({
   template :'#twoweeks',
-  props : {
-      email: String,
-      list : Array
-  },
+  props : ['email' , 'list'],
+  
   data: function() {
     return {
       narp: "test"
     }
   },
+  
   filters: {
     momentDate: function(date) {
       return moment(date).format("ddd DD, MMM");
@@ -75,6 +74,6 @@ const moment = require('moment');
       } 
     }
   }
-};
+});
 
 </script>
