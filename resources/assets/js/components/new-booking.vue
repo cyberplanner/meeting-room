@@ -57,7 +57,7 @@
 
 const moment = require('moment');
 
-  export default {
+  module.exports = {
     template :'#new-booking',
     props : {
       email : String
@@ -91,6 +91,7 @@ const moment = require('moment');
         
         ajaxPost: function() {
           this.$http.post('api/post', this.form).then(() => {
+            console.log("ajaxPost");
             this.$parent.$options.methods.fetchEventList();
           });
         }

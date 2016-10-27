@@ -48,7 +48,7 @@
 
 const moment = require('moment');
 
- export default {
+ module.exports = {
   template :'#twoweeks',
   props : {
       email: String,

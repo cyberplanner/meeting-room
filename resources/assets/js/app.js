@@ -10,7 +10,7 @@ Vue.use(require('vue-moment'));
 
 const moment = require('moment');
 
-var Alert = require('./components/Alert.vue');
+import Alert from './components/Alert.vue';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -22,12 +22,11 @@ var Alert = require('./components/Alert.vue');
 Vue.component('new-booking', require('./components/new-booking.vue'));
 Vue.component('twoweeks', require('./components/twoweeks.vue'));
 
-
-
 const app = new Vue({
     el: '#app',
     components: { 
-      alert: Alert 
+      alert: { Alert },
+      
     },
     data: {
       word: "test",
@@ -38,18 +37,16 @@ const app = new Vue({
     created: function() {
         this.fetchEventList();
     },
-    
-    ready: function () {
-      this.fetchEventList();
-    },
-    
+
     methods: {
         toggle() {
           return this.calendar = !this.calendar;
         },
         
-      fetchEventList() {
+      fetchEventList: function () {
+        console.log("narp");
         this.$http.get('api/get').then((response) => {
+          console.log("insideFetch");
           this.list = response.body; 
         }, (response) => { 
             console.log("errors");  
