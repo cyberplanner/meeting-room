@@ -17,7 +17,7 @@
         </ul>
 </div>
 <div class="col-md-3">
-        <new-booking email="{{ Auth::user()->email }}"></new-booking>
+        <new-booking @pagefresh="fetchEventList" email="{{ Auth::user()->email }}"></new-booking>
 </div>
         <!--@include('flash')-->
         <!--<alert></alert>-->

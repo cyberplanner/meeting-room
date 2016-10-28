@@ -22,6 +22,8 @@ import Alert from './components/Alert.vue';
 Vue.component('new-booking', require('./components/new-booking.vue'));
 Vue.component('twoweeks', require('./components/twoweeks.vue'));
 
+var bus = new Vue();
+
 const app = new Vue({
     el: '#app',
     components: { 
@@ -34,16 +36,16 @@ const app = new Vue({
       moment: moment(),
       list: []
     },
-    created: function() {
-        this.fetchEventList();
+    
+      
+    created: function () {
+      this.fetchEventList();
     },
-
-    events: {
-      datahere: function () {
-        this.$nextTick(function () {
-          console.log('Item loaded!', this.list);
-        });
-      }
+    
+    ready: function () {
+      this.$watch('list', function () {
+        console.log('list updated');
+      }, { deep: true} )
     },
     
     methods: {
@@ -53,11 +55,9 @@ const app = new Vue({
         
       fetchEventList: function () {
         console.log("narp");
-          this.$http.get('api/get').then(function (response) {
+          this.$http.get('api/get').then((response) => {
+          this.list = response.body;
           console.log("insideFetch");
-          this.list = response.body; 
-        },function(response){ 
-            console.log("errors");  
         });
       }
     },

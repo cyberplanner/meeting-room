@@ -57,7 +57,7 @@
 
 const moment = require('moment');
 
-  module.exports = Vue.extend({
+  module.exports = {
     template :'#new-booking',
     props : {
       email : String
@@ -91,13 +91,12 @@ const moment = require('moment');
         },
         
         ajaxPost: function() {
-          this.$http.post('api/post', this.form).then(function() {
-            this.$parent.$nextTick(function () {
-              this.$parent.$events.$boardcast('datahere');
-              console.log("ticked");
-            });
+          this.$http.post('api/post', this.form).then(() => {
+            this.$emit('pagefresh');
+            console.log('tickinbooking');
           });
         }
+        
     },
     
     computed: {
@@ -105,6 +104,6 @@ const moment = require('moment');
           return this.form.end_time = moment(this.form.start_time, "HH:mm").add(30, "minutes").format("HH:mm");
         }
     }
-});
+};
   
 </script>

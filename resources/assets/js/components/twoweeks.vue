@@ -25,7 +25,7 @@
                         <span v-if="event.start.dateTime">{{ event.start.dateTime | momentTime }} - {{ event.end.dateTime | momentTime }}</span>
                         <span v-if="event.start.date">{{ event.start.date | momentTime }} - {{ event.end.date | momentTime }}</span>
                         </td>
-                        <td><span v-if="event.summary">{{ event.summary }}</span></td>
+                        <td><span v-if="event.summary" style="font-size: 16px">{{ event.summary }}</span></td>
                         <td>
                           <span v-if="event.attendees">{{ event.attendees[0]['name']}}</span>
                           <span v-else>Mettrr</span>
@@ -48,7 +48,7 @@
 
 const moment = require('moment');
 
- module.exports = Vue.extend({
+ module.exports = {
   template :'#twoweeks',
   props : ['email' , 'list'],
   
@@ -74,6 +74,6 @@ const moment = require('moment');
       } 
     }
   }
-});
+};
 
 </script>
