@@ -32,7 +32,7 @@
                         </td>
                         <td>
                             <span v-if="checkUser(event)">
-                              <button id="update-model" v-on:click="updateModal = true"><i class="fa fa-wrench" aria-hidden="true"></i></button>
+                              <button id="update-model" v-on:click="updateModal = true; eventUpdate = event"><i class="fa fa-wrench" aria-hidden="true"></i></button>
                               <button type="submit" value="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                             </span>
                         </td>
@@ -42,6 +42,9 @@
             </div>
         </div>
     </div>
+    
+                              <update :event="eventUpdate" v-show="updateModal" @close="closeModal"></update>
+
 </template>
 
 <script type>
@@ -54,7 +57,8 @@ const moment = require('moment');
   
   data: function() {
     return {
-      narp: "test"
+      eventUpdate: '',
+      updateModal : false
     }
   },
   
@@ -72,6 +76,10 @@ const moment = require('moment');
       if (event.attendees) {
         return this.email == event.attendees[0]['email'];
       } 
+    },
+    
+    closeModal () {
+      return this.updateModal = false;
     }
   }
 };

@@ -1,4 +1,4 @@
-<template>
+<template id="alert">
 
   <div class="Alert Alert--"v-bind:class="type | capitalize">
     
@@ -10,6 +10,7 @@
 <script>
 
   module.exports = {
+      template: '#alert',
       props: {
         type: { default: 'info' } 
       },

@@ -21,6 +21,7 @@ import Alert from './components/Alert.vue';
 
 Vue.component('new-booking', require('./components/new-booking.vue'));
 Vue.component('twoweeks', require('./components/twoweeks.vue'));
+Vue.component('update', require('./components/update.vue'));
 
 var bus = new Vue();
 
