@@ -33,7 +33,11 @@
                         <td>
                             <span v-if="checkUser(event)">
                               <button id="update-model" v-on:click="updateModal = true; eventUpdate = event"><i class="fa fa-wrench" aria-hidden="true"></i></button>
-                              <button type="submit" value="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                              <form @submit.prevent="deleteEvent">
+                                <button type="submit" v-on:click="form.eventId = event.id">
+                                  <i class="fa fa-trash-o" aria-hidden="true" ></i>
+                                </button>
+                              </form>
                             </span>
                         </td>
                       </tr>
@@ -58,7 +62,10 @@ const moment = require('moment');
   data: function() {
     return {
       eventUpdate: '',
-      updateModal : false
+      updateModal : false,
+      form : {
+        eventId : ''
+      }
     }
   },
   
@@ -76,6 +83,16 @@ const moment = require('moment');
       if (event.attendees) {
         return this.email == event.attendees[0]['email'];
       } 
+    },
+    
+    deleteEvent: function() {
+        // var params = { "eventId" : event } 
+        // var conparams = JSON.stringify(params);
+        console.log(this.form.eventId);
+        this.$http.post('api/remove', this.form).then(() => {
+            console.log("narm");
+            this.$emit('pagefresh');
+        });
     },
     
     closeModal () {

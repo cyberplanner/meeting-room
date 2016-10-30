@@ -92,11 +92,10 @@ const moment = require('moment');
         
         ajaxPost: function() {
           this.$http.post('api/post', this.form).then(() => {
-            this.$emit('pagefresh');
+            this.$emit('pagewefresh');
             console.log('tickinbooking');
           });
         }
-        
     },
     
     computed: {

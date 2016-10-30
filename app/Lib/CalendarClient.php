@@ -66,7 +66,7 @@ class CalendarClient
   
   public function deleteData($eventId)
   {
-    $this->service->events->delete($this->calendarId, $eventId);
+    $this->service->events->delete($this->calendarId, $eventId->eventId);
   }
   
   public function updateData($request)

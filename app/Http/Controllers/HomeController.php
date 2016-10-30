@@ -61,14 +61,14 @@ class HomeController extends Controller
         // return redirect('/home');
     }
     
-    public function destroy(Request $request)
+    public function remove(Request $request)
     {
-        $this->calendar->deleteData($request->eventId);
+        $this->calendar->deleteData($request);
         
-        $flashMessage = strtoupper($request->title) . ' has been deleted. ';
-        flash($flashMessage);
+        // $flashMessage = strtoupper($request->title) . ' has been deleted. ';
+        // flash($flashMessage);
         
-        return redirect('/home');
+        // return redirect('/home');
     }
     
     public function update(Request $request)

@@ -19,5 +19,5 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/get', 'HomeController@index');
 Route::post('/post', 'HomeController@store');
-Route::delete('/delete', 'HomeController@destroy');
+Route::post('/remove', 'HomeController@remove');
 Route::patch('/update', 'HomeController@update');

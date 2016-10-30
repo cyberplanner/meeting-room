@@ -17,7 +17,7 @@
         </ul>
 </div>
 <div class="col-md-3">
-        <new-booking @pagefresh="fetchEventList" email="{{ Auth::user()->email }}"></new-booking>
+        <new-booking @pagewefresh="fetchEventList" email="{{ Auth::user()->email }}"></new-booking>
 </div>
         <!--@include('flash')-->
         <!--<alert></alert>-->
@@ -32,7 +32,7 @@
                 <h3 v-else>2 Week View</h3>
         </div>
         
-    <twoweeks v-show="twoWeeks" email="{{ Auth::user()->email }}" :list="list"></twoweeks>
+    <twoweeks @pagefresh="fetchEventList" v-show="twoWeeks" email="{{ Auth::user()->email }}" :list="list"></twoweeks>
     
     <div v-show="calendar">
         @include('calendar')
