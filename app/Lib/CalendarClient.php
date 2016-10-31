@@ -21,6 +21,24 @@ class CalendarClient
     $this->calendarId = "hello@mettrr.com";
   }
   
+  public function getData()
+  {
+    $startDate = new \DateTime(null, new \DateTimeZone('Europe/London'));
+    $endDate = new \DateTime(null, new \DateTimeZone('Europe/London'));
+    $endDate->add(new \DateInterval('P14D'));
+    
+    $optParams = array(
+      'orderBy' => 'startTime',
+      'singleEvents' => TRUE,
+      'timeMin' => $startDate->format('c'),
+      'timeMax' => $endDate->format('c')
+    );
+    
+    $results = $this->service->events->listEvents($this->calendarId, $optParams);
+    return $results;
+    
+  }
+  
   public function postData($request)
   {
     $event = new \Google_Service_Calendar_Event(array(
@@ -46,24 +64,6 @@ class CalendarClient
   $this->service->events->insert($this->calendarId, $event);
   }
   
-  public function getData()
-  {
-    $startDate = new \DateTime(null, new \DateTimeZone('Europe/London'));
-    $endDate = new \DateTime(null, new \DateTimeZone('Europe/London'));
-    $endDate->add(new \DateInterval('P14D'));
-    
-    $optParams = array(
-      'orderBy' => 'startTime',
-      'singleEvents' => TRUE,
-      'timeMin' => $startDate->format('c'),
-      'timeMax' => $endDate->format('c')
-    );
-    
-    $results = $this->service->events->listEvents($this->calendarId, $optParams);
-    return $results;
-    
-  }
-  
   public function deleteData($eventId)
   {
     $this->service->events->delete($this->calendarId, $eventId->eventId);
@@ -71,10 +71,29 @@ class CalendarClient
   
   public function updateData($request)
   {
-    $event = $this->service->events->get($this->calendarId, $request->eventId);
-    $event->setSummary($request->title);
+    // $event = $this->service->events->get($this->calendarId, $request->eventId);
+    // $event->setSummary($request->title);
+    $event = new \Google_Service_Calendar_Event(array(
+    	'summary' =>  ucfirst(strtolower($request->title)),
+      	'location' => 'Mettrr, 5-8 Crown Works, Temple Street, E2 6QQ',
+      	'colorId' => $request->priority,
+      	'start' => array(
+        	'dateTime' => $request->input_date . 'T' . 
+        	              $request->start_time . ':00.000+01:00',
+        	'timeZone' => 'Europe/London',
+      	),
+      	'end' => array(
+        	'dateTime' => $request->input_date . 'T' . 
+        	              $request->end_time . ':00.000+01:00',
+        	'timeZone' => 'Europe/London',
+      	),
+      	'attendees' => array(
+        		array('email' => $request->email,'organizer' => true)
+    		),
+    		'guestsCanSeeOtherGuests' => false,
+    ));
     
-    $updatedEvent = $this->service->events->update($this->calendarId, $request->eventId, $event);
+     $this->service->events->update($this->calendarId, $request->eventId, $event);
   }
   
   public function getEvent($request)

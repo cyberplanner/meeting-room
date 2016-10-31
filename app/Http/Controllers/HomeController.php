@@ -71,7 +71,7 @@ class HomeController extends Controller
         // return redirect('/home');
     }
     
-    public function update(Request $request)
+    public function patch(Request $request)
     {
         $this->calendar->updateData($request);
     }

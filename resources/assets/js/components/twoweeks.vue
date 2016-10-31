@@ -32,7 +32,7 @@
                         </td>
                         <td>
                             <span v-if="checkUser(event)">
-                              <button id="update-model" v-on:click="updateModal = true; eventUpdate = event"><i class="fa fa-wrench" aria-hidden="true"></i></button>
+                              <button id="update-model" v-on:click="eventUpdate = event; updateModal = true"><i class="fa fa-wrench" aria-hidden="true"></i></button>
                               <form @submit.prevent="deleteEvent">
                                 <button type="submit" v-on:click="form.eventId = event.id">
                                   <i class="fa fa-trash-o" aria-hidden="true" ></i>
@@ -47,7 +47,7 @@
         </div>
     </div>
     
-                              <update :event="eventUpdate" v-show="updateModal" @close="closeModal"></update>
+    <update :event="eventUpdate" :email="email" v-if="updateModal" @close="closeModal"></update>
 
 </template>
 
@@ -95,8 +95,9 @@ const moment = require('moment');
         });
     },
     
-    closeModal () {
-      return this.updateModal = false;
+    closeModal: function () {
+      this.updateModal = false;
+      this.$emit('pagefresh');
     }
   }
 };

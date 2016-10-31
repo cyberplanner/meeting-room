@@ -5,10 +5,16 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-Vue.use(require('vue-moment'));
 
+require('./bootstrap');
+
+import Vuex from 'vuex'
+
+Vue.use(Vuex);
+
+Vue.use(require('vue-moment'));
 const moment = require('moment');
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -23,7 +29,6 @@ Vue.component('alert', require('./components/Alert.vue'));
 
 const app = new Vue({
     el: '#app',
-    
     data: {
       word: "test",
       calendar: false,
