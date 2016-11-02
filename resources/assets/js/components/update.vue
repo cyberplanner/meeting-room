@@ -118,7 +118,8 @@ const moment = require('moment');
                  this.form.start_time = this.momentTime(this.event.start.dateTime),
                  this.form.end_time = this.momentTime(this.event.end.dateTime),
                  this.form.title = this.event.summary,
-                 this.form.eventId = this.event.id;
+                 this.form.eventId = this.event.id,
+                 this.form.priority = this.event.colorId;
       }
     },
     

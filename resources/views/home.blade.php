@@ -21,6 +21,13 @@
 </div>
         <!--@include('flash')-->
         <!--<alert></alert>-->
+         <p>@{{ counter }}</p>
+              <p>
+                <button @click="increment">+</button>
+                <button @click="decrement">-</button>
+              </p>
+        
+    
     
     <div class="col-md-9">
         <div class="form-group">
@@ -32,7 +39,7 @@
                 <h3 v-else>2 Week View</h3>
         </div>
         
-    <twoweeks @pagefresh="fetchEventList" v-show="twoWeeks" email="{{ Auth::user()->email }}" :list="list"></twoweeks>
+    <twoweeks @pagefresh="fetchEventList" v-show="twoWeeks" email="{{ Auth::user()->email }}"></twoweeks>
     
     <div v-show="calendar">
         @include('calendar')

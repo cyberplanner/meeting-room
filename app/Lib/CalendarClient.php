@@ -47,12 +47,12 @@ class CalendarClient
       	'colorId' => $request->priority,
       	'start' => array(
         	'dateTime' => $request->input_date . 'T' . 
-        	              $request->start_time . ':00.000+01:00',
+        	              $request->start_time . ':00.000+00:00',
         	'timeZone' => 'Europe/London',
       	),
       	'end' => array(
         	'dateTime' => $request->input_date . 'T' . 
-        	              $request->end_time . ':00.000+01:00',
+        	              $request->end_time . ':00.000+00:00',
         	'timeZone' => 'Europe/London',
       	),
       	'attendees' => array(
@@ -79,12 +79,12 @@ class CalendarClient
       	'colorId' => $request->priority,
       	'start' => array(
         	'dateTime' => $request->input_date . 'T' . 
-        	              $request->start_time . ':00.000+01:00',
+        	              $request->start_time . ':00.000+00:00',
         	'timeZone' => 'Europe/London',
       	),
       	'end' => array(
         	'dateTime' => $request->input_date . 'T' . 
-        	              $request->end_time . ':00.000+01:00',
+        	              $request->end_time . ':00.000+00:00',
         	'timeZone' => 'Europe/London',
       	),
       	'attendees' => array(

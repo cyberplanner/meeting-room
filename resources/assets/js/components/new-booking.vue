@@ -49,7 +49,7 @@
             </div>
         
          </form>
-      
+      {{ count }}
       </div>
 </template>
 
@@ -70,7 +70,7 @@ const moment = require('moment');
           input_date: '',
           start_time: '08:00',
           end_time: '',
-          priority: '',
+          priority: '10',
           email : this.email        
         }
       }
@@ -99,8 +99,12 @@ const moment = require('moment');
     },
     
     computed: {
-        returnEndTime() {
+        returnEndTime () {
           return this.form.end_time = moment(this.form.start_time, "HH:mm").add(30, "minutes").format("HH:mm");
+        },
+        
+        count () {
+          return this.$store.state.count
         }
     }
 };

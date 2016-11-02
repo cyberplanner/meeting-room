@@ -57,7 +57,7 @@ const moment = require('moment');
 
  module.exports = {
   template :'#twoweeks',
-  props : ['email' , 'list'],
+  props : ['email'],
   
   data: function() {
     return {
@@ -66,6 +66,12 @@ const moment = require('moment');
       form : {
         eventId : ''
       }
+    }
+  },
+  
+  computed : {
+    list () {
+      return this.$store.state.bookings;
     }
   },
   
