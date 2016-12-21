@@ -1,6 +1,5 @@
 <template id="update">
   
-  
   <div class="modal-mask" transition="modal"> 
     <div class="modal-container">
       <div class="modal-body">

@@ -19,8 +19,6 @@
 <div class="col-md-3">
         <new-booking @pagewefresh="fetchEventList" email="{{ Auth::user()->email }}"></new-booking>
 </div>
-        <!--@include('flash')-->
-        <!--<alert></alert>-->
          <p>@{{ counter }}</p>
               <p>
                 <button @click="increment">+</button>
@@ -31,6 +29,8 @@
     
     <div class="col-md-9">
         <div class="form-group">
+            <full-calendar :events="list" lang="en" title-format="MMMM yyyy"></full-calendar>
+            
             <button class="btn btn-primary" v-on:click="toggle">
                 <span v-if="calendar">View 2 Weeks</span>
                 <span v-else>View Calendar</span>

@@ -18,7 +18,8 @@ class CalendarClient
     $this->client->setScopes(array('https://www.googleapis.com/auth/calendar'));
     $this->client->setAuthConfig($this->credentialJson);
     $this->service = new \Google_Service_Calendar($this->client);  
-    $this->calendarId = "hello@mettrr.com";
+    $this->calendarId = "mettrr.com_44gcck3aprn6f5pfnq1on2j9v4@group.calendar.google.com";
+    // $this->calendarId = "hello@mettrr.com";
   }
   
   public function getData()
@@ -34,6 +35,10 @@ class CalendarClient
       'timeMax' => $endDate->format('c')
     );
     
+    // $calendarListEntry = $this->service->calendarList->get("mettrr.com_44gcck3aprn6f5pfnq1on2j9v4@group.calendar.google.com");
+    // dd($calendarListEntry->getSummary());
+    // $results = $this->service->calendars->get($this->calendarId);
+    // return $results->getSummary();
     $results = $this->service->events->listEvents($this->calendarId, $optParams);
     return $results;
     

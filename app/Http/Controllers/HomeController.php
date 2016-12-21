@@ -20,7 +20,6 @@ class HomeController extends Controller
     
     public function __construct(CalendarClient $calendar)
     {
-        // $this->middleware('auth');
         $this->calendar = $calendar;
     }
 
@@ -33,14 +32,14 @@ class HomeController extends Controller
     {
         $eventListing = $this->calendar->getData();
         $events = $eventListing["modelData"]["items"];
-        foreach ($events as $key => $value) {
-            if (empty($value['attendees'][0]['email'])) {
-                continue;    
-            } 
-            $email = $value['attendees'][0]['email'];
-            $name = User::where('email', $email)->select('name','email')->first();
-            $events[$key]['attendees'][0]['name'] = $name->name;
-        }
+        // foreach ($events as $key => $value) {
+        //     if (empty($value['attendees'][0]['email'])) {
+        //         continue;    
+        //     } 
+        //     $email = $value['attendees'][0]['email'];
+        //     $name = User::where('email', $email)->select('name','email')->first();
+        //     // $events[$key]['attendees'][0]['name'] = $name->name;
+        // }
         return $events;
     }
     
