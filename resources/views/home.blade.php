@@ -29,7 +29,6 @@
     
     <div class="col-md-9">
         <div class="form-group">
-            <full-calendar :events="list" lang="en" title-format="MMMM yyyy"></full-calendar>
             
             <button class="btn btn-primary" v-on:click="toggle">
                 <span v-if="calendar">View 2 Weeks</span>
@@ -43,6 +42,7 @@
     
     <div v-show="calendar">
         @include('calendar')
+        <full-calendar :events="list" lang="en" title-format="MMMM yyyy"></full-calendar>
     </div>
                 
                 
